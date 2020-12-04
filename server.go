@@ -196,17 +196,20 @@ func calcGenAvrg() float64 {
 
 func genAvrg(res http.ResponseWriter, req *http.Request) {
 	generalAverage := calcGenAvrg()
-
-	myStr := "El promedio general es de: " + strconv.FormatFloat(generalAverage, 'f', 2, 64)
-	res.Header().Set(
-		"Content-Type",
-		"text/html",
-	)
-	fmt.Fprintf(
-		res,
-		loadHTML("./generalForm.html"),
-		myStr,
-	)
+	fmt.Println(req.Method)
+	switch req.Method {
+	case "GET":
+		myStr := "El promedio general es de: " + strconv.FormatFloat(generalAverage, 'f', 2, 64)
+		res.Header().Set(
+			"Content-Type",
+			"text/html",
+		)
+		fmt.Fprintf(
+			res,
+			loadHTML("./generalForm.html"),
+			myStr,
+		)
+	}
 }
 
 func main() {
